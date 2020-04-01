@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--{{ form_friend.owners_friends }}- -->
+<!--{{ form_friend.acc_owners_friends }}- -->
+<!--{{ user.id }}- -->
+<!--{{ user.username }}- -->
+
+<!--{% for i in form_friend.owners_friends %}-->
+<!--<p>{{i.acc_owner_id }}</p>-->
+<!--	{% if i.acc_owner_id == user.username %}-->
+<!--		<p>{{i}}</p>-->
+<!--	{% endif %}-->
+<!--{% endfor %}-->
+
+		{% if ctx %}
+			{{ctx}}
+		{% else %}
+			<div class="form_friend">
+				<form action="" method="post">
+					{% csrf_token %}
+					<table>
+					{{ form_friend.as_p }}
+					</table>
+					<input type="submit" value="add друзей" />
+
+				</form>
+			</div>
+		{% endif %}
+			<div class="form_friend">
+				<form action="" method="post">
+					{% csrf_token %}
+					<table>
+					{{ form_friend_del.as_p }}
+					</table>
+					<input type="submit" value="удалить из друзей" />
+
+				</form>
+			</div>
+
+
+
+		<form action="" method="post">
+			{% csrf_token %}
+			<p>
+				<label for="id_owners_friends">Owners_friend:</label>
+				<input type="hidden" name="owners_friends" maxlength="30" required="" id="id_owners_friends" value="2">
+			</p>
+			<p>
+				<label for="id_acc_owners_friends">Acc_owners_friends:</label>
+				<input type="hidden" name="acc_owners_friends" maxlength="30" required="" id="id_acc_owners_friends" value="3">
+			</p>
+
+			<input type="submit" value="Добавить в друзья">
+
+		</form>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ posts_detail.name_for_post }}</h1>
+{{posts_detail}}
+  <p><strong>account_for_post</strong> <a href="">{{ posts_detail.account_for_post }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>soc_net_fot_post:</strong> {{ posts_detail.soc_net_fot_post }}</p>
+  <p><strong>text_fot_post:</strong> {{ posts_detail.text_fot_post }}</p>
+  <p><strong>date_time_fot_post:</strong> {{ posts_detail.date_time_fot_post }}</p>
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Copies</h4>
+
+    {% for copy in account_for_post.posts_set.all %}
+    <hr>
+
+    <p class="text-muted"><strong>Id:</strong> {{copy.acc_owner}}</p>
+    {% endfor %}
+
+
+
+
+{% if posts_all %}
+<ul>
+    {% for post in posts_all %}
+    <li>
+        <a href="{{ post.get_absolute_url }}">{{ post.name_for_post }} </a>{{ post.account_for_post }} {{ post.soc_net_fot_post }}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+    <p>Your posts are not here</p>
+{% endif %}
+
+
+
+
+
+
+  </div>
+{% endblock %}

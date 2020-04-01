@@ -1,0 +1,220 @@
+
+
+
+
+
+	<div id="leftcolumn">
+		<div class="otstup">
+			<div id="logo_contain">
+				<div id="logo_in">
+					<div class="logo_png"></div>
+					<a class="text_logo" href="{% url 'index' %}accs/{{first_acc.id}}">текст лого</a>
+				</div>
+				<div class="line_logo"></div>
+			</div>
+			<div class="social_tabs_contain">
+				<a href="#" class="social_tabs vse" >Все</a>
+				<a href="#" class="social_tabs inst">Инстаграм</a>
+				<a href="#" class="social_tabs vk">Вконтакте</a>
+				<a href="#" class="social_tabs face">Фейсбук</a>
+				<a href="#" class="social_tabs tg">Телеграм</a>
+				<a href="#" class="social_tabs ok">Оk</a>
+			</div>
+		</div>
+			<div id="tabs1">
+				<div class="tabs">
+				    <input id="tab1" type="radio" name="tabs" checked>
+				    <label for="tab1" id="tab1id" class="tab1id_logo" title="Мои аккаунты">Мои аккаунты</label>
+				    <input id="tab2" type="radio" name="tabs">
+				    <label for="tab2" id="tab2id" class="tab2id_logo" title="Мои партнеры">Мои партнеры</label>
+				    <section id="content-tab1">
+
+
+
+
+
+
+						{% if accounts_list %}
+								{% for acc in accounts_list %}
+									{% if user.id == acc.acc_owner_id %}
+										<a href="{{ acc.get_absolute_url }}" class="moy_akk akk_one">
+											<div class="akks_elements">
+												<div class="imgs">
+													<div class="logo_acc"></div>
+													<div class="fon_soc_set"></div>
+													<div class="logo_soc_set"></div>
+												</div>
+												<div class="texts">
+													<div class="akk_name">{{ acc.name_for_accounts }}</div>
+													<div class="akk_stat">{{ acc.id }}</div>
+
+												</div>
+												<div class="akk_settings"></div>
+
+											</div>
+										</a>
+									{% endif %}
+								{% endfor %}
+						{% else %}
+							<p>Your accounts are not here</p>
+						{% endif %}
+
+
+
+
+
+
+
+
+				    </section>
+				    <section id="content-tab2">
+
+
+
+            {% if accounts_list %}
+
+                {% for acc in accounts_list %}
+                    {% if user.id != acc.acc_owner_id %}
+{% for friends in friends_id %}
+
+                                {% if friends.owners_friends == user.id  %}
+                                    {% if friends.acc_owners_friends == acc.id  %}
+
+                    <div class="moy_akk akk_one">
+                        <a href="{{ acc.get_absolute_url }}" class="link_in_acc">
+                            <div class="akks_elements">
+                                <div class="imgs">
+                                    <div class="logo_acc"></div>
+                                    <div class="fon_soc_set"></div>
+                                    <div class="logo_soc_set"></div>
+                                </div>
+                                <div class="texts">
+                                    <div class="akk_name">{{ acc.soc_net }}</div>
+                                    <div class="akk_name">{{ acc.name_for_accounts }}</div>
+                                    <div class="akk_stat">{{ acc.id }}</div>
+
+                                </div>
+
+
+                            </div>
+                        </a>
+                        <div class="akk_settings">
+
+                                    <a href="/friend{{get_absolute_url}}/{{friends.id }}/delete" class="akk_settings_hover">
+                                        Удалить из друзей
+                                    </a>
+
+
+
+                        </div>
+
+                    </div>
+						                                    {% endif %}
+                                {% endif %}
+
+
+                            {% endfor %}
+                    {% endif %}
+                {% endfor %}
+
+            {% else %}
+                <p>Your accounts are not here</p>
+            {% endif %}
+
+
+
+
+				    </section>
+				</div>
+
+
+
+
+
+
+
+			</div>
+
+ <a href="#win2" class="button button-red">Запланировать пост</a>
+ <!-- Модальное окно №2 -->
+    <a href="#x" class="overlay" id="win2"></a>
+    <div class="popup">
+
+
+
+
+
+
+
+
+
+		{% if ctx %}
+			{{ctx}}
+		{% else %}
+
+
+
+
+			<div class="form_add_post">
+				<form action="" method="post">
+				{% csrf_token %}
+				<p>
+					<label for="id_account_for_post">Account for post:</label>
+					<select name="account_for_post" id="id_account_for_post">
+
+
+
+
+						{% if accounts.acc_owner_id == user.id %}
+							<option value="" selected="">---------</option>
+							{{accounts.name_for_accounts}}
+
+							{% for accounts in accounts_list %}
+								{% if accounts.acc_owner_id == user.id %}
+									<option value="{{accounts.id}}">{{accounts.name_for_accounts}}</option>
+								{% endif %}
+							{% endfor %}
+						{% else %}
+							<option value="{{accounts.id}}">{{accounts.name_for_accounts}}</option>
+						{% endif %}
+
+					</select>
+				</p>
+
+				<p>
+				<label for="id_soc_net_fot_post">Soc net fot post:</label>
+
+					{% if accounts.acc_owner_id == user.id %}
+						{{form.soc_net_fot_post}}
+					{% else %}
+						<select name="soc_net_fot_post" required="" id="id_soc_net_fot_post">
+							<option value="{{accounts.soc_net}}">{{accounts.soc_net}}</option>
+						</select>
+					{% endif %}
+
+				</p>
+					<p>
+						<label for="id_name_for_post">Name for post:</label>
+						<input type="text" name="name_for_post" maxlength="30" required="" id="id_name_for_post">
+					</p>
+					<p>
+						<label for="id_text_fot_post">Text fot post:</label>
+						<textarea name="text_fot_post" cols="40" rows="10" maxlength="20" id="id_text_fot_post"></textarea>
+					</p>
+					<p>
+						<label for="id_date_time_for_post">Date time for post:</label>
+						<input type="text" name="date_time_for_post" required="" id="id_date_time_for_post">
+					</p>
+					<p>
+						<label for="id_file_fot_post">File fot post:</label>
+						<input type="file" name="file_fot_post" id="id_file_fot_post">
+					</p>
+
+				<input type="submit" value="Запланировать пост">
+
+				</form>
+
+			</div>
+		{% endif %}
+
+

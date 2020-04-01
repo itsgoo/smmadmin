@@ -1,0 +1,116 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+
+<div class="page_add_account">
+				<div class="paa_title">
+					<div class="paa_title_title">Добавить аккаунт</div>
+					<div class="paa_title_text">Выберите тариф, чтобы публиковать посты и планировать взаимопиар</div>
+				</div>
+				<div class="paa_btn">
+					<div class="paa_btn_el">
+						<div class="paa_btn_el_inst paa_btn_el_gen_icon"></div>
+						<a href="instagram" class="paa_btn_el_name">Инстаграм</a>
+					</div>
+					<div class="paa_btn_el">
+						<div class="paa_btn_el_vk paa_btn_el_gen_icon"></div>
+						<a href="vkontakte" class="paa_btn_el_name">Вконтакте</a>
+					</div>
+					<div class="paa_btn_el">
+						<div class="paa_btn_el_fb paa_btn_el_gen_icon"></div>
+						<div class="paa_btn_el_name">Фейсбук</div>
+					</div>
+					<div class="paa_btn_el">
+						<div class="paa_btn_el_tg paa_btn_el_gen_icon"></div>
+						<a href="telegram" class="paa_btn_el_name">Телеграм</a>
+					</div>
+					<div class="paa_btn_el">
+						<div class="paa_btn_el_ok paa_btn_el_gen_icon"></div>
+						<div class="paa_btn_el_name">Однокласники</div>
+					</div>
+				</div>
+
+
+
+
+				<div class="paa_added_acc">
+					<div class="paa_added_title">Прекрепленные аккаунты</div>
+					<div class="paa_added_acc_tabs">
+
+						<div class="tabs_choise_acc">
+							<input id="tab1_choise_ac" type="radio" name="tabs_choise_acc" checked="">
+							<label for="tab1_choise_ac" id="tab1_choise_ac_id" class="tab1_choise_ac_id_logo" title="Аккаунты инстаграм">Инстаграм</label>
+							<input id="tab2_choise_ac" type="radio" name="tabs_choise_acc">
+							<label for="tab2_choise_ac" id="tab2_choise_ac_id" class="tab2_choise_ac_id_logo" title="Аккаунты вконтакте">Вконтакте</label>
+							<input id="tab3_choise_ac" type="radio" name="tabs_choise_acc">
+							<label for="tab3_choise_ac" id="tab3_choise_ac_id" class="tab3_choise_ac_id_logo" title="Аккаунты вконтакте">Вконтакте</label>
+
+							<section id="content-tab1_choise_ac">
+
+								{% if accounts_list_inst %}
+
+									{% for acc in accounts_list_inst %}
+
+									<div class="tca_list">
+										<div class="tca_list_el">
+											<div class="tca_list_icon_1"></div>
+											<a href="{{ acc.get_absolute_url }}/delete" class="tca_list_name">
+												<div class="name_for_acc">{{acc.name_for_accounts}}</div>
+												<div class="delete_acc">удалить</div>
+											</a>
+
+										</div>
+
+									</div>
+									{% endfor %}
+								{% endif %}
+							</section>
+
+
+							<section id="content-tab2_choise_ac">
+								{% if accounts_list_vk %}
+									{% for acc in accounts_list_vk %}
+
+									<div class="tca_list">
+										<div class="tca_list_el">
+											<div class="tca_list_icon_1"></div>
+											<a href="{{ acc.get_absolute_url }}/delete" class="tca_list_name">
+												<div class="name_for_acc">{{acc.name_for_accounts}}</div>
+												<div class="delete_acc">удалить</div>
+											</a>
+
+										</div>
+
+									</div>
+									{% endfor %}
+								{% endif %}
+							</section>
+
+							<section id="content-tab3_choise_ac">
+								{% if accounts_list_ok %}
+									{% for acc in accounts_list_ok %}
+
+									<div class="tca_list">
+										<div class="tca_list_el">
+											<div class="tca_list_icon_1"></div>
+											<a href="{{ acc.get_absolute_url }}/delete" class="tca_list_name">
+												<div class="name_for_acc">{{acc.name_for_accounts}}</div>
+												<div class="delete_acc">удалить</div>
+											</a>
+										</div>
+
+									</div>
+									{% endfor %}
+								{% endif %}
+							</section>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+{% endblock %}

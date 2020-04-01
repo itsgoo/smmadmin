@@ -1,0 +1,47 @@
+
+{% include 'include/head.html' %}
+
+{% if user.is_authenticated %}
+
+
+
+    <div class="container">
+
+
+    {% include 'include/leftcolumn.html' %}
+
+
+
+{% block form_posts %}
+{% endblock %}
+    <a class="close" title="Закрыть" href="#close"></a>
+    </div>
+
+	</div>
+
+
+
+
+    <div id="rightcolumn">
+    {% include 'include/rightcolumn_header.html' %}
+
+    {% block content %}
+
+    {% endblock %}
+
+{% else %}
+     {% include 'include/get_in.html' %}
+{% endif %}
+
+
+
+
+
+
+</div>
+
+
+</body>
+</html>
+
+

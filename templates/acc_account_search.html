@@ -1,0 +1,197 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+
+
+
+
+
+
+<div class="filter_of_profile">
+    <div class="fop_main">
+        <div class="fm_title">Поиск профилей</div>
+        <div class="fm_choose_soc_net">
+
+            <form action="" method="get">
+
+                <div class="choices_block">
+                    {% for radio in filter_form.soc_net %}
+                        {{ radio.tag }}
+                        <label for="{{ radio.id_for_label }}" id="{{ radio.id_for_label }}">
+                            {{ radio.choice_label }}
+                        </label>
+                    {% endfor %}
+                </div>
+
+
+                    <section id="fop_content-tab1_choise_ac">
+
+                        <div class="fct_filter_one">
+                            <div class="ffo_name_profile">
+                                <div class="ffp_title">{{filter_form.name_for_accounts.name}}</div>
+                                <div class="ffp_input">
+                                                        {% for field in filter_form.name_for_accounts %}
+                        {{ field.tag }}
+                        {{ field.css_classes }}
+                        {{ field.label }}
+                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="ffo_subscriptions">
+                                <div class="ffs_title">Подписчики</div>
+                                <div class="ffs_inputs">
+                                    <div class="ffi_from"><input class="ffi_fromleft" type="text" size="10"
+                                                                 placeholder="10000"></div>
+                                    <div class="ffi_tire">-</div>
+                                    <div class="ffi_to"><input class="ffi_fromright" type="text" size="10"
+                                                               placeholder="900000"></div>
+                                </div>
+                            </div>
+                            <div class="ffo_themes">
+                                <div class="fft_title">Тематика сообщества</div>
+                                <div class="fft_list">
+                                    <select class="filter_list">
+                                        <option selected="selected" disabled="">Выберите тематику</option>
+                                        <option>Чебурашка</option>
+                                        <option>Крокодил Гена</option>
+                                        <option>Шапокляк</option>
+                                        <option>Крыса Лариса</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fct_filter_two">
+                            <div class="fft_target_audience">
+                                <div class="fta_title">Целевая аудитория</div>
+                                <div class="fta_check">
+                                    <div class="ftc_1">
+                                        <input type="checkbox" checked="">
+                                        <label>Мужчины</label>
+                                    </div>
+
+                                    <div class="ftc_2">
+                                        <input type="checkbox">
+                                        <label>Женщины</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fft_country">
+                                <div class="ffc_title">Страна</div>
+                                <div class="ffc_check">
+                                    <div class="ffc">
+                                        <input type="checkbox" checked="">
+                                        <label>RU</label>
+                                    </div>
+                                    <div class="ffc">
+                                        <input type="checkbox">
+                                        <label>UA</label>
+                                    </div>
+                                    <div class="ffc">
+                                        <input type="checkbox">
+                                        <label>BY</label>
+                                    </div>
+                                    <div class="ffc">
+                                        <input type="checkbox">
+                                        <label>KZ</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fft_bttns">
+                                <input type="submit" value="Найти" class="fftb_search">
+                                <a href="{% url 'search_accs' %}" class="fftb_clear">Сбросить</a>
+                            </div>
+                        </div>
+
+
+                    </section>
+
+            </form>
+
+
+
+        </div>
+        <div class="fm_filters">
+
+            {% if accounts_list_filter %}
+
+                {% for acc in accounts_list_filter %}
+                    {% if user.id != acc.acc_owner_id %}
+
+                    <div class="moy_akk akk_one">
+                        <a href="{{ acc.get_absolute_url }}" class="link_in_acc">
+                            <div class="akks_elements">
+                                <div class="imgs">
+                                    <div class="logo_acc"></div>
+                                    <div class="fon_soc_set"></div>
+                                    <div class="logo_soc_set"></div>
+                                </div>
+                                <div class="texts">
+                                    <div class="akk_name">{{ acc.soc_net }}</div>
+                                    <div class="akk_name">{{ acc.name_for_accounts }}</div>
+                                    <div class="akk_stat">{{ acc.id }}</div>
+
+                                </div>
+
+
+                            </div>
+                        </a>
+                        <div class="akk_settings">
+                            {% for friends in friends_id %}
+
+                                {% if friends.owners_friends == user.id  %}
+                                    {% if friends.acc_owners_friends == acc.id  %}
+
+                                    <a href="/friend{{get_absolute_url}}/{{friends.id }}/delete" class="akk_settings_hover">
+                                        Удалить из друзей
+                                    </a>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if friends.owners_friends != user.id and friends.acc_owners_friends == acc.id %}
+
+                                    <form action="" method="post" class="akk_settings_hover">
+                                        {% csrf_token %}
+                                        <label for="id_owners_friends"></label>
+                                        <input type="hidden" value="{{user.id}}" name="owners_friends" id="id_owners_friends" >
+                                        <label for="id_acc_owners_friends"></label>
+                                        <input type="hidden" value="{{ acc.id }}" name="acc_owners_friends" id="id_acc_owners_friends" >
+                                        <input type="submit" value="Добавить в друзья">
+                                    </form>
+
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% for acc_id in list_acc_id %}
+                                {% if acc_id == acc.id %}
+
+                                    <form action="" method="post" class="akk_settings_hover">
+                                        {% csrf_token %}
+                                        <label for="id_owners_friends"></label>
+                                        <input type="hidden" value="{{user.id}}" name="owners_friends" id="id_owners_friends" >
+                                        <label for="id_acc_owners_friends"></label>
+                                        <input type="hidden" value="{{ acc.id }}" name="acc_owners_friends" id="id_acc_owners_friends" >
+                                        <input type="submit" value="Добавить в друзья">
+                                    </form>
+
+
+                                {% endif %}
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+                    {% endif %}
+                {% endfor %}
+
+            {% else %}
+                <p>Your accounts are not here</p>
+            {% endif %}
+
+		</div>
+    </div>
+</div>
+
+
+{% endblock %}

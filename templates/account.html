@@ -1,0 +1,17 @@
+
+{% include 'include/head.html' %}
+
+<div class="container">
+
+{% include 'include/leftcolumn.html' %}
+
+<div id="rightcolumn">
+{% include 'include/rightcolumn_header.html' %}
+
+
+{% block content %}
+{% include 'include/rightcolumn.html' %}
+{% endblock %}
+
+</div>
+

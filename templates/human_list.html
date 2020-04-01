@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Employers</h1>
+<p>{{name}}</p>
+{% block content %}
+
+<table>
+    <tr>
+        <td>id</td>
+        <td>name</td>
+        <td>surname</td>
+        <td>Date of birth</td>
+        <td>company</td>
+        <td>position</td>
+        <td>programming language</td>
+        <td>salary</td>
+        <td></td>
+    </tr>
+    {% for human in all_humans %}
+    <tr>
+        <td>{{human.id}}</td>
+        <td>{{human.name}}</td>
+        <td>{{human.surname}}</td>
+        <td>{{human.birth}}</td>
+        <td>{{human.company}}</td>
+        <td>{{human.position}}</td>
+        <td>{{human.language}}</td>
+        <td>{{human.language}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+
+
+
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+    <h1>ACCS PAGE</h1>
+
+<p>User id: {{ user.id }}</p>
+
+{% if accounts_list %}
+<ul>
+    {% for acc in accounts_list %}
+        {% if user.id == acc.acc_owner_id %}
+                <li>
+                    <a href="{{ acc.get_absolute_url }}">{{ acc.name_for_accounts }} </a>
+                    <p>{{ acc.acc_owner }}</p>
+                    <p>{{ acc.soc_net }}</p>
+                    <p>{{ acc.id }}</p>
+                </li>
+
+        {% endif %}
+    {% endfor %}
+</ul>
+{% else %}
+    <p>Your accounts are not here</p>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

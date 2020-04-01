@@ -1,0 +1,95 @@
+
+		<div id="header">
+			{% if user.is_authenticated %}
+			<div class="header_links">
+				<div class="link_contain">
+
+					<a href="{% url 'search_accs' %}">
+						<div class="link_icon search_publiks"></div>
+						<p>Поиск аккаунтов</p>
+					</a>
+				</div>
+				<div class="link_contain">
+
+					<a href="#">
+						<div class="link_icon my_templates"></div>
+						<p>Мои шаблоны</p>
+					</a>
+				</div>
+				<div class="link_contain">
+
+					<a href="#">
+						<div class="link_icon prices"></div>
+						<p>Тарифы</p>
+					</a>
+				</div>
+				<div class="link_contain">
+
+					<a href="{% url 'accs_add' %}">
+						<div class="link_icon akks"></div>
+						<p>Аккаунты</p>
+					</a>
+				</div>
+				<div class="link_contain notification_link">
+
+					<a href="#">
+						<div class="link_icon notification"></div>
+						<p>Уведомления</p>
+					</a>
+					<div class="header_notification">
+
+					{% for account in accounts_list %}
+
+						{% if account.acc_owner_id == user.id%}
+
+							{% for post in posts_detail_in_acc %}
+
+								{% if post.account_for_post_id == account.id and post.id_post_creator != user.id%}
+									<div class="notif_post">
+										<div>В аккаунте: <span class="post_akk_name">{{account.name_for_accounts}}</span></div>
+										<div>Имя поста: <span class="post_akk_name">{{post.name_for_post}}</span></div>
+										<div>от аккаунта: <span class="post_akk_name">{{account.name_for_accounts}}</span></div>
+										<a href="{{ account.get_absolute_url }}" class="btn_notif notif_element">Разрешить</a>
+										<a href="{{ post.get_absolute_url }}/delete" class="btn_notif notif_element">Удалить</a>
+									</div>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+
+
+
+
+
+<!--						<div>Notification</div>-->
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			<div class="personal_info">
+				<div class="dropdown">
+					<button class="dropbtn">
+						<div id="btn_preson_info"></div>
+						{% if user.is_authenticated %}
+						<p>{{ user.get_username }}</p>
+						{% endif %}
+						<div id="settings_icon"></div>
+					</button>
+
+					<div class="dropdown-content">
+						{% if user.is_authenticated %}
+						<a href="#">Балланс</a>
+						<a href="#">Настройки</a>
+						{% endif %}
+                    {% if user.is_authenticated %}
+                     <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+                    {% else %}
+                     <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+                    {% endif %}
+                </ul>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
