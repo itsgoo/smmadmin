@@ -295,7 +295,7 @@ class AccSearchListView(ListView):
 
         context['friends_id'] = friends_id
         context['filter_form'] = filter_form
-        
+
         return context
 
     def post(self, request):

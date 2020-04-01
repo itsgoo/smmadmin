@@ -51,6 +51,7 @@ class Posts(models.Model):
     file_fot_post = models.FileField(upload_to='file', blank=True)
     id_post_creator = models.IntegerField(verbose_name='id_post_creator_name',)
 
+
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('posts_detail', args=[str(self.id)])
