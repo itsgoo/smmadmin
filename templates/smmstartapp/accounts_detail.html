@@ -340,6 +340,7 @@
 
                     <table>
                         {% for number, names_dates in common_list %}
+
                             {% if this_month|date:"n" == number|date:"n"  %}
                                 <tr>
                                     <td class="tbl_date_td"><span class="mounth_num">{{number|date:"j"}}<br>
